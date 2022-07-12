@@ -11,4 +11,6 @@ Chooseing sell will bring up your inventory to choose an item<br>
 You Can then enter the amount of gold you want to sell it for<br>
 ![alt text](https://github.com//Xatmo980/Simple-Auction/blob/main/Gold.jpg?raw=true)<br><br>
 then you can check the buy menu to see a list of all items posted by all players and purchase items<br>
-![alt text](https://github.com//Xatmo980/Simple-Auction/blob/main/Auction.jpg?raw=true)
+![alt text](https://github.com//Xatmo980/Simple-Auction/blob/main/Auction.jpg?raw=true)<br><br>
+-Current limitations-<br>
+   Can only post one item at a time
