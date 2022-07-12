@@ -1,5 +1,8 @@
 # Simple-Auction
-A simple Auction House Script for TES3MP
+A simple Auction House Script for TES3MP<br><br>
+
+Credits to JakobCh (https://github.com/JakobCh/tes3mp_scripts/blob/master/jcMarketplace/scripts/jcMarketplace.lua) for some functions<br>
+Credits to anyone else who i used functions from<br>
 
 typeing /ah brings up a buy or sell menu<br>
 ![alt text](https://github.com//Xatmo980/Simple-Auction/blob/main/MainAH.jpg?raw=true)<br><br>
