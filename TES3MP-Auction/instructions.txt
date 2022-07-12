@@ -1,0 +1,4 @@
+1. put (AuctionMenu.lua) in scripts\menu
+2. put (Tes3MpAuction.lua) in scripts\custom
+3. put  Auction = require("custom.Tes3MpAuction") in the (customScripts.lua) location in server\scripts
+4. put  "AuctionMenu" under (config.menuHelperFiles) in (config.lua) location at server\scripts
