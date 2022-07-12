@@ -13,4 +13,5 @@ You Can then enter the amount of gold you want to sell it for<br>
 then you can check the buy menu to see a list of all items posted by all players and purchase items<br>
 ![alt text](https://github.com//Xatmo980/Simple-Auction/blob/main/Auction.jpg?raw=true)<br><br>
 -Current limitations-<br>
-   Can only post one item at a time
+   Can only post one item at a time<br>
+   Custom items not supported
