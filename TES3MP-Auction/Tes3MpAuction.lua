@@ -13,21 +13,22 @@ local IName = ""
 local INum = ""
 Selling = {}
 Buying = {}
+
 local getFiles = function(directory)
-    local i, t, popen = 0, {}, io.popen
-    local pfile = nil
+   local i, t, popen = 0, {}, io.popen
+   local pfile = nil
 
    if tes3mp.GetOperatingSystemType() == "Windows" then
-    pfile = popen('dir "' .. directory .. '" /b')
+       pfile = popen('dir "' .. directory .. '" /b')
    else
        pfile = popen('find "' .. directory .. '" -maxdepth 1 -type f -printf "%f\n"')
    end
 
-    for filename in pfile:lines() do
-        i = i + 1
-	t[i] = filename
-    end
-	pfile:close()
+   for filename in pfile:lines() do
+       i = i + 1
+       t[i] = filename
+   end
+   pfile:close()
 
    return t
 end
@@ -44,7 +45,7 @@ end
 
 Auction.Buy = function(pid)
    if Players[pid] ~= nil and Players[pid]:IsLoggedIn() then
-      local directory = tes3mp.GetDataPath() .. "/Auction/"
+      local directory = tes3mp.GetDataPath() .. "/custom/Auction/"
       local Files = getFiles(directory)
       local items = ""
       local data = {}
@@ -58,7 +59,7 @@ Auction.Buy = function(pid)
           if (fileName == "BotItems") then
              -- tes3mp.LogMessage(3, "Gandalf: You Shall Not Pass!!!")
           else
-            data = jsonInterface.load("Auction/" .. fileName .. ".json")
+            data = jsonInterface.load("custom/Auction/" .. fileName .. ".json")
             if data ~= nil then
               for index, Items in pairs(data) do
                   for k,v in pairs(Items) do
@@ -158,9 +159,9 @@ Auction.BuyItem = function(pid)
                          Auction.GoldSetAmount(pid, G)
                          inventoryHelper.addItem(Players[pid].data.inventory, ReF, 1)
                          tes3mp.MessageBox(pid, -1, "You have purchased item!")
-                         LoadItem = jsonInterface.load("Auction/" .. BP .. ".json")
+                         LoadItem = jsonInterface.load("custom/Auction/" .. BP .. ".json")
                          table.remove(LoadItem.Items, In)
-                         jsonInterface.save("Auction/" .. BP .. ".json", LoadItem)
+                         jsonInterface.save("custom/Auction/" .. BP .. ".json", LoadItem)
                          Players[pid]:LoadInventory()
                          Players[pid]:LoadEquipment()
                          Players[pid]:LoadQuickKeys()
@@ -184,7 +185,7 @@ Auction.SaveItem = function(pid)
          local Play = Players[pid]
          local Ind = 0
 
-         iList = jsonInterface.load("Auction/" .. playerName .. ".json")
+         iList = jsonInterface.load("custom/Auction/" .. playerName .. ".json")
          if iList.Items == nil then
             iList.Items = {}
          end    
@@ -204,7 +205,7 @@ Auction.SaveItem = function(pid)
                  end
                 Ind = Ind + 1
               end
-           jsonInterface.save("Auction/" .. playerName .. ".json", iList)
+           jsonInterface.save("custom/Auction/" .. playerName .. ".json", iList)
       end
 end
 
@@ -214,7 +215,7 @@ Auction.Bot = function(pid)
         local ANumber
         local rand
          if (Auction.CheckLimit() == nil) or (Auction.CheckLimit() == 0) then
-           BotItems = jsonInterface.load("Auction/BotItems.json")
+           BotItems = jsonInterface.load("custom/Auction/BotItems.json")
            if BotI.Items == nil then
               BotI.Items = {}
            end 
@@ -227,7 +228,7 @@ Auction.Bot = function(pid)
                            rand = math.random(ANumber)
                            table.insert(BotI.Items, BotItems.Items[rand])
                       end
-                      jsonInterface.save("Auction/Bot.json", BotI)
+                      jsonInterface.save("custom/Auction/Bot.json", BotI)
                       return
                 else
                    for index, Bot in pairs(BotItems.Items) do
@@ -238,7 +239,7 @@ Auction.Bot = function(pid)
                            end
                        end
                    end 
-                 jsonInterface.save("Auction/Bot.json", BotItems)
+                 jsonInterface.save("custom/Auction/Bot.json", BotItems)
                  return
                end
             end
@@ -248,19 +249,19 @@ end
 
 
 Auction.Check = function(pid)
-         local dir = tes3mp.GetDataPath() .. "/Auction/"
+         local dir = tes3mp.GetDataPath() .. "/custom/Auction/"
          local playerName = Players[pid].name
          if tes3mp.DoesFilePathExist(dir .. playerName .. ".json") == true then
             return
          else
             local save = {}
-            jsonInterface.save("Auction/" .. playerName .. ".json", save)
+            jsonInterface.save("custom/Auction/" .. playerName .. ".json", save)
             return
          end
 end
 
 Auction.CheckLimit = function(pid)
-         local directory = tes3mp.GetDataPath() .. "/Auction/"
+         local directory = tes3mp.GetDataPath() .. "/custom/Auction/"
          local Files = getFiles(directory)
          local Iter = 0
          local Itm
@@ -273,7 +274,7 @@ Auction.CheckLimit = function(pid)
           if (fileName == "BotItems") then
              -- tes3mp.LogMessage(3, "Gandalf: You Shall Not Pass!!!")
           else
-            dat = jsonInterface.load("Auction/" .. fileName .. ".json")
+            dat = jsonInterface.load("custom/Auction/" .. fileName .. ".json")
             if dat ~= nil then
               for index, Itm in pairs(dat) do
                   for k,v in pairs(Itm) do
