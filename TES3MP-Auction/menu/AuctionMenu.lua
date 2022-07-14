@@ -5,7 +5,7 @@ buttons = {
               destinations = {menuHelper.destinations.setDefault(nil,
               { 
 				menuHelper.effects.runGlobalFunction(nil, "OnPlayerSendMessage",
-					{menuHelper.variables.currentPid(), "/perchase"})
+					{menuHelper.variables.currentPid(), "/purchase"})
                 })
               }
            },	
