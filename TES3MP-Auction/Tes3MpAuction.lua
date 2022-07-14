@@ -2970,7 +2970,7 @@ Auction.SaveItem = function(pid)
                     tableHelper.insertValues(v, {Player = playerName}, true)
                     tableHelper.insertValues(v, {Price = SellValue}, true)
                     inventoryHelper.removeExactItem(Play.data.inventory, v.Name, 1)
-                    local MsgName = v.Name
+                    local MsgName = "\""..auctionItemLookupTable[v.Name].."\""
                     tes3mp.MessageBox(pid, -1, MsgName .. " Has been posted and taken")
                     Play:LoadInventory()
                     Play:LoadEquipment()
