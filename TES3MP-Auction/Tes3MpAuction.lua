@@ -14,11 +14,14 @@ local INum = ""
 Selling = {}
 Buying = {}
 local getFiles = function(directory)
-
     local i, t, popen = 0, {}, io.popen
     local pfile = nil
 
+   if tes3mp.GetOperatingSystemType() == "Windows" then
     pfile = popen('dir "' .. directory .. '" /b')
+   else
+       pfile = popen('find "' .. directory .. '" -maxdepth 1 -type f -printf "%f\n"')
+   end
 
     for filename in pfile:lines() do
         i = i + 1
