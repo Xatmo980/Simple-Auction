@@ -5932,7 +5932,7 @@ end
 end
 
 customCommandHooks.registerCommand("ah", Auction.Option)
-customCommandHooks.registerCommand("perchase", Auction.Buy)
+customCommandHooks.registerCommand("purchase", Auction.Buy)
 customCommandHooks.registerCommand("selling", Auction.Sell)
 
 return Auction
