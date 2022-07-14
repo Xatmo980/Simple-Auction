@@ -2,4 +2,4 @@
 2. put (Tes3MpAuction.lua) in scripts\custom
 3. put  Auction = require("custom.Tes3MpAuction") in the (customScripts.lua) location in server\scripts
 4. put  "AuctionMenu" under (config.menuHelperFiles) in (config.lua) location at server\scripts
-5. create folder Auction in server\data
+5. put  "BotItems.json" in data\Auction
