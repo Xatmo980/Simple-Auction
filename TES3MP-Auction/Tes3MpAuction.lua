@@ -222,7 +222,6 @@ Auction.Bot = function(pid)
                    end
                        for i=1, BotPostLimit do
                            rand = math.random(ANumber)
-                           print(BotItems.Items[rand])
                            table.insert(BotI.Items, BotItems.Items[rand])
                       end
                       jsonInterface.save("Auction/Bot.json", BotI)
