@@ -1,6 +1,7 @@
-local GuI = 44332215
-local SGuI = 44332220
-local IGuI = 44332225
+local CGuI = 44332215
+local GuI = 44332220
+local SGuI = 44332225
+local IGuI = 44332230
 local PostItemLimit = 50         -- (Working) max amount of items posted allowed
 local BotOn = true               -- (Working) turn bot on or off (true = on, false = off)
 local RandomizeBotItems = true   -- (Working) Post Random items in the list (Requires BotPostLimit to be Set as well)
@@ -2813,8 +2814,7 @@ Auction.Option = function(pid)
          if BotOn == true then
             Auction.Bot(pid)
          end
-	 Players[pid].currentCustomMenu = "Select"
-         menuHelper.DisplayMenu(pid, Players[pid].currentCustomMenu)
+         tes3mp.CustomMessageBox(pid, CGuI, color.DarkOrange.."Welcome To the auction", "Buy;Sell;Close")
       end
 end
 
@@ -2848,7 +2848,7 @@ Auction.Buy = function(pid)
        for i=1,#Selling do
            items = items .. "(" .. Selling[i].Player .. ")" ..  "[" .. Selling[i].Name .. "]".. " G" .. Selling[i].Price.."\n"
        end
-   tes3mp.ListBox(pid, GuI, "Auction House", items)          
+   tes3mp.ListBox(pid, GuI, color.DarkOrange.."Auction House", items)          
   end
 end
 
@@ -2874,7 +2874,7 @@ Auction.Sell = function(pid)
                        end
                    end
                end 
-              tes3mp.ListBox(pid, SGuI, "Inventory", ItemList)
+              tes3mp.ListBox(pid, SGuI, color.DarkOrange.."Inventory", ItemList)
        end
 end
 
@@ -2882,6 +2882,18 @@ end
 customEventHooks.registerHandler("OnGUIAction", function(eventStatus, pid, idGui, data)
     local isValid = eventStatus.validDefaultHandler
     if isValid ~= false then
+        if idGui == CGuI then
+           if tonumber(data) == 0 then
+              Auction.Buy(pid)
+              return
+           elseif tonumber(data) == 1 then
+              Auction.Sell(pid)
+              return
+           elseif tonumber(data) == 2 then
+	      --Do nothing
+	      return
+	   end
+        end
         if idGui == SGuI then
            if data ~= nil then
              if tonumber(data) >= 0 then
@@ -2915,7 +2927,7 @@ customEventHooks.registerHandler("OnGUIAction", function(eventStatus, pid, idGui
 end)
 
 Auction.ShowInp = function(pid)
-     tes3mp.InputDialog(pid, IGuI, "How Much Gold?","Enter the amount of gold")
+     tes3mp.InputDialog(pid, IGuI, color.DarkOrange.."How Much Gold?","Enter the amount of gold")
 end
 
 Auction.BuyItem = function(pid)
@@ -3160,7 +3172,5 @@ Auction.fakePlayer = function(name)
 end
 
 customCommandHooks.registerCommand("ah", Auction.Option)
-customCommandHooks.registerCommand("purchase", Auction.Buy)
-customCommandHooks.registerCommand("selling", Auction.Sell)
 
 return Auction
