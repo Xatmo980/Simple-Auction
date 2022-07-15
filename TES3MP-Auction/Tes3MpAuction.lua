@@ -2985,42 +2985,45 @@ Auction.SaveItem = function(pid)
 end
 
 Auction.Bot = function(pid)
-     if Players[pid] ~= nil and Players[pid]:IsLoggedIn() then
-        local BotI = {}
-        local ANumber
-        local rand
-         if (Auction.CheckLimit() == nil) or (Auction.CheckLimit() == 0) then
+   if Players[pid] ~= nil and Players[pid]:IsLoggedIn() then
+       local BotI = {}
+       if (Auction.CheckLimit() == nil) or (Auction.CheckLimit() == 0) then
            BotItems = jsonInterface.load("custom/Auction/BotItems.json")
            if BotI.Items == nil then
-              BotI.Items = {}
-           end 
-             if BotItems ~= nil then
-                if RandomizeBotItems == true then
-                   for index, B in pairs(BotItems.Items) do
-                       ANumber = index
+               BotI.Items = {}
+           end
+           if BotItems ~= nil then
+               if RandomizeBotItems == true then
+                   for i = 1, BotPostLimit do
+                       -- Get the address of an anonymous table and convert that into a number added to os.time()
+                       -- https://www.reddit.com/r/lua/comments/1b5qg3/comment/c940pyj
+                       math.randomseed(os.time() + tonumber(tostring({}):sub(8)))
+                       local rand = math.random(#BotItems.Items)
+                       table.insert(BotI.Items, BotItems.Items[rand])
                    end
-                       for i=1, BotPostLimit do
-                           rand = math.random(ANumber)
-                           table.insert(BotI.Items, BotItems.Items[rand])
-                      end
-                      jsonInterface.save("custom/Auction/Bot.json", BotI)
-                      return
-                else
+                   jsonInterface.save("custom/Auction/Bot.json", BotI)
+                   return
+               else
                    for index, Bot in pairs(BotItems.Items) do
-                       for k,v in pairs(Bot) do
+                       for k, v in pairs(Bot) do
                            print(k, v)
                            if k ~= nil then
-                              tableHelper.insertValues(BotItems.Items, {Price = v['2'], Player = v['1'], Player = v.Name}, true)
+                               tableHelper.insertValues(
+                                   BotItems.Items,
+                                   {Price = v["2"], Player = v["1"], Player = v.Name},
+                                   true
+                               )
                            end
                        end
-                   end 
-                 jsonInterface.save("custom/Auction/Bot.json", BotItems)
-                 return
+                   end
+                   jsonInterface.save("custom/Auction/Bot.json", BotItems)
+                   return
                end
-            end
-         end
-      end
+           end
+       end
+   end
 end
+
 
 
 Auction.Check = function(pid)
